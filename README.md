@@ -1,6 +1,6 @@
 # WORD COUNTER
 
-this is my owned version of wc for personal use
+this is my own version of wc for personal use
 
 ### Usage
 
