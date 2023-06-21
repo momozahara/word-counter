@@ -4,7 +4,7 @@ fn main() {
     // Read the command-line argument for the message
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
-        println!("Please privide a message.");
+        println!("Please provide a message.");
         return;
     }
     let contents = &args[1];
