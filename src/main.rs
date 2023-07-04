@@ -15,6 +15,7 @@ fn main() {
     let char_nwhitespace_count = contents.replace(" ", "").chars().count();
 
     // Print the results
+    println!("Echo: {contents}");
     println!("Word count: {word_count}");
     println!("Character count: {char_count}");
     println!("Character no space count: {char_nwhitespace_count}");
