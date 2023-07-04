@@ -7,16 +7,24 @@ fn main() {
         println!("Please provide a message.");
         return;
     }
-    let contents = &args[1];
+
+    // Skip the first argument, which is the program's name
+    let mut result = String::new();
+    for arg in args.iter().skip(1) {
+        result.push_str(arg.replace('\n', " ").as_str());
+        result.push(' ');
+    }
+
+    result = result.trim().to_string();
 
     // Count words and characters
-    let word_count = contents.split_whitespace().count();
-    let char_count = contents.chars().count();
-    let char_nwhitespace_count = contents.replace(" ", "").chars().count();
+    let word_count = result.split_whitespace().count();
+    let char_count = result.replace(" ", "").chars().count();
+    let char_count_withspace = result.chars().count();
 
     // Print the results
-    println!("Echo: {contents}");
+    println!("Echo: {result}");
     println!("Word count: {word_count}");
     println!("Character count: {char_count}");
-    println!("Character no space count: {char_nwhitespace_count}");
+    println!("Character count with space: {char_count_withspace}");
 }
