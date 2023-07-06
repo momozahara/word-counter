@@ -3,7 +3,7 @@ use std::env;
 fn normal_run(args: Vec<String>) {
     let mut result = String::new();
     for arg in args.iter().skip(1) {
-        result.push_str(arg.replace('\n', " ").as_str());
+        result.push_str(arg.replace("\\n", "\n").replace("\n", " ").as_str());
         result.push(' ');
     }
 
@@ -22,7 +22,7 @@ fn normal_run(args: Vec<String>) {
 fn line_run(args: Vec<String>) {
     let mut result = String::new();
     for arg in args.iter().skip(1) {
-        result.push_str(arg.as_str());
+        result.push_str(arg.replace("\\n", "\n").as_str());
     }
 
     let line_count = result.lines().count();
