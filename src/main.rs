@@ -1,3 +1,4 @@
+use regex::Regex;
 use std::{collections::HashSet, env};
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq)]
@@ -6,10 +7,17 @@ enum Flags {
     Echo,
 }
 
+fn remove_extra_whitespace(input: &str) -> String {
+    let re = Regex::new(r"\s+").unwrap();
+    re.replace_all(input, " ").to_string()
+}
+
 fn normal_run(args: Vec<String>, flags: HashSet<Flags>) {
     let mut result = String::new();
     for arg in args.iter().skip(1) {
-        result.push_str(arg.replace("\\n", "\n").replace("\n", " ").as_str());
+        result.push_str(
+            remove_extra_whitespace(arg.replace("\\n", "\n").replace("\n", " ").as_str()).as_str(),
+        );
         result.push(' ');
     }
 
