@@ -11,10 +11,6 @@ wcc "hello world"
 
 line count
 ```bash
-wcc -l "hello\n world"
-```
-
-```bash
 wcc -l "hello
 world"
 ```
