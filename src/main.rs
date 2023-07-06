@@ -25,19 +25,16 @@ fn normal_run(args: Vec<String>, flags: HashSet<Flags>) {
 
     let word_count = result.split_whitespace().count();
     let char_count = result.replace(" ", "").chars().count();
-    let char_count_withspace = result.chars().count();
 
     match flags.contains(&Flags::Echo) {
         false => {
             println!("Echo: {result}");
             println!("Word count: {word_count}");
             println!("Character count: {char_count}");
-            println!("Character count with space: {char_count_withspace}");
         }
         true => {
             println!("{word_count}");
             println!("{char_count}");
-            println!("{char_count_withspace}");
         }
     }
 }
