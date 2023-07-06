@@ -9,6 +9,11 @@ word count
 wcc "hello world"
 ```
 
+disable echo and label
+```bash
+wcc -e "hello world"
+```
+
 line count
 ```bash
 wcc -l "hello\nworld"

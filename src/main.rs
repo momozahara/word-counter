@@ -1,6 +1,12 @@
-use std::env;
+use std::{collections::HashSet, env};
 
-fn normal_run(args: Vec<String>) {
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
+enum Flags {
+    Line,
+    Echo,
+}
+
+fn normal_run(args: Vec<String>, flags: HashSet<Flags>) {
     let mut result = String::new();
     for arg in args.iter().skip(1) {
         result.push_str(arg.replace("\\n", "\n").replace("\n", " ").as_str());
@@ -13,13 +19,22 @@ fn normal_run(args: Vec<String>) {
     let char_count = result.replace(" ", "").chars().count();
     let char_count_withspace = result.chars().count();
 
-    println!("Echo: {result}");
-    println!("Word count: {word_count}");
-    println!("Character count: {char_count}");
-    println!("Character count with space: {char_count_withspace}");
+    match flags.contains(&Flags::Echo) {
+        false => {
+            println!("Echo: {result}");
+            println!("Word count: {word_count}");
+            println!("Character count: {char_count}");
+            println!("Character count with space: {char_count_withspace}");
+        }
+        true => {
+            println!("{word_count}");
+            println!("{char_count}");
+            println!("{char_count_withspace}");
+        }
+    }
 }
 
-fn line_run(args: Vec<String>) {
+fn line_run(args: Vec<String>, flags: HashSet<Flags>) {
     let mut result = String::new();
     for arg in args.iter().skip(1) {
         result.push_str(arg.replace("\\n", "\n").as_str());
@@ -27,7 +42,14 @@ fn line_run(args: Vec<String>) {
 
     let line_count = result.lines().count();
 
-    println!("Line count: {line_count}");
+    match flags.contains(&Flags::Echo) {
+        false => {
+            println!("Line count: {line_count}");
+        }
+        true => {
+            println!("{line_count}");
+        }
+    }
 }
 
 fn main() {
@@ -37,10 +59,17 @@ fn main() {
         return;
     }
 
-    let line_flag = args.iter().find(|a| a.as_str() == "-l");
+    let flags: HashSet<Flags> = args
+        .iter()
+        .filter_map(|a| match a.as_str() {
+            "-e" => Some(Flags::Echo),
+            "-l" => Some(Flags::Line),
+            _ => None,
+        })
+        .collect();
 
-    match line_flag {
-        Some(_) => line_run(args),
-        None => normal_run(args),
+    match flags.contains(&Flags::Line) {
+        true => line_run(args, flags),
+        false => normal_run(args, flags),
     }
 }
