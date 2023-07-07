@@ -64,13 +64,22 @@ fn main() {
         return;
     }
 
-    let flags: HashSet<Flags> = args
+    let mut flags: HashSet<Flags> = HashSet::new();
+
+    let args: Vec<String> = args
         .iter()
-        .filter_map(|a| match a.as_str() {
-            "-e" => Some(Flags::Echo),
-            "-l" => Some(Flags::Line),
-            _ => None,
+        .filter(|a| match a.as_str() {
+            "-e" => {
+                flags.insert(Flags::Echo);
+                false
+            }
+            "-l" => {
+                flags.insert(Flags::Line);
+                false
+            }
+            _ => true,
         })
+        .map(|a| a.to_string())
         .collect();
 
     match flags.contains(&Flags::Line) {
