@@ -31,3 +31,17 @@ wcc -l "$(ls)"
 wcc -l "hello
 world"
 ```
+
+### Test
+
+```bash
+cargo test
+```
+
+```bash
+cargo test test_normal_run
+```
+
+```bash
+cargo test test_line_run
+```

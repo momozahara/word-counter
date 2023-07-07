@@ -1,6 +1,9 @@
 use regex::Regex;
 use std::{collections::HashSet, env};
 
+#[cfg(test)]
+mod test;
+
 #[derive(Debug, Clone, Hash, PartialEq, Eq)]
 enum Flags {
     Line,
