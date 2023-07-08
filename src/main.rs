@@ -4,7 +4,7 @@ use std::{collections::HashSet, env};
 #[cfg(test)]
 mod test;
 
-#[derive(Debug, Clone, Hash, PartialEq, Eq)]
+#[derive(Hash, PartialEq, Eq)]
 enum Flags {
     Line,
     Echo,
@@ -17,7 +17,7 @@ fn remove_extra_whitespace(input: &str) -> String {
 
 fn normal_run(args: Vec<String>, flags: HashSet<Flags>) {
     let mut result = String::new();
-    for arg in args.iter().skip(1) {
+    for arg in args.iter() {
         result.push_str(
             remove_extra_whitespace(arg.replace("\\n", "\n").replace("\n", " ").as_str()).as_str(),
         );
@@ -44,7 +44,7 @@ fn normal_run(args: Vec<String>, flags: HashSet<Flags>) {
 
 fn line_run(args: Vec<String>, flags: HashSet<Flags>) {
     let mut result = String::new();
-    for arg in args.iter().skip(1) {
+    for arg in args.iter() {
         result.push_str(arg.replace("\\n", "\n").as_str());
     }
 
@@ -61,8 +61,8 @@ fn line_run(args: Vec<String>, flags: HashSet<Flags>) {
 }
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    if args.len() < 2 {
+    let args: Vec<String> = env::args().skip(1).collect();
+    if args.len() < 1 {
         println!("Please provide a message.");
         return;
     }

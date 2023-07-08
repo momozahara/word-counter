@@ -24,10 +24,7 @@ macro_rules! assert_stdout_eq {
 fn test_normal_run() {
     assert_stdout_eq!(
         normal_run(
-            vec!["/path/to", "hello world"]
-                .into_iter()
-                .map(String::from)
-                .collect(),
+            vec!["hello world"].into_iter().map(String::from).collect(),
             vec![Flags::Echo].into_iter().collect(),
         ),
         "2\n10\n"
@@ -38,10 +35,7 @@ fn test_normal_run() {
 fn test_line_run() {
     assert_stdout_eq!(
         line_run(
-            vec!["/path/to", "hello\nworld"]
-                .into_iter()
-                .map(String::from)
-                .collect(),
+            vec!["hello\nworld"].into_iter().map(String::from).collect(),
             vec![Flags::Echo].into_iter().collect(),
         ),
         "2\n"
